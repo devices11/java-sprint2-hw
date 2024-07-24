@@ -50,7 +50,7 @@ public class StepTracker {
     }
 
     void changeStepGoal() {
-        consoleColor.printGreen("Введите целевое значение количества шагов на день: ");
+        consoleColor.printGreen("Введите целевое значение количества шагов на день (текущее: " + goalByStepsPerDay + "): ");
         try {
             int newGoalByStepsPerDay = scanner.nextInt();
             if (newGoalByStepsPerDay <= 0) {
@@ -59,6 +59,7 @@ public class StepTracker {
             }
 
             goalByStepsPerDay = newGoalByStepsPerDay;
+            consoleColor.printlnBlue("Значение сохранено.");
             System.out.println("-".repeat(20));
 
         } catch (InputMismatchException E) {
