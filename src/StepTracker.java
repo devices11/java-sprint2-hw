@@ -74,11 +74,14 @@ public class StepTracker {
         try {
             consoleColor.printGreen("Введите номер месяца, за который хотете получить статистику: ");
             int month = scanner.nextInt();
+            MonthData monthData = monthToData[month - 1];
+
             if (month < 1 || month > 12) {
                 consoleColor.printlnRed("Месяц должен быть в диамазоне от 1 до 12. Вы ввели: " + month);
                 return;
             }
-            int sumStepsFromMonth = monthToData[month - 1].sumStepsFromMonth();
+
+            int sumStepsFromMonth = monthData.sumStepsFromMonth();
 
             if (sumStepsFromMonth == 0){
                 consoleColor.printlnBlue("В указанном месяце данные отсутствуют.");
@@ -86,13 +89,13 @@ public class StepTracker {
             }
 
             System.out.println("Количество пройденных шагов по дням:");
-            monthToData[month - 1].printDaysAndStepsFromMonth();
+            monthData.printDaysAndStepsFromMonth();
 
             System.out.println("Общее количество шагов: " + sumStepsFromMonth);
 
-            System.out.println("Максимальное количество шагов за день: " + monthToData[month - 1].maxSteps());
+            System.out.println("Максимальное количество шагов за день: " + monthData.maxSteps());
 
-            System.out.println("Среднее количество шагов: " + sumStepsFromMonth / monthToData[month - 1].days.length);
+            System.out.println("Среднее количество шагов: " + sumStepsFromMonth / monthData.days.length);
 
             System.out.println("Пройденная дистанция (в километрах): "
                     + converter.convertToKm(sumStepsFromMonth));
@@ -101,7 +104,7 @@ public class StepTracker {
                     + converter.convertStepsToKilocalories(sumStepsFromMonth));
 
             System.out.println("Лучшая серия подряд идущих дней с выполненным планом шагов (" + goalByStepsPerDay + "): "
-                    + monthToData[month - 1].bestSeries(goalByStepsPerDay));
+                    + monthData.bestSeries(goalByStepsPerDay));
             System.out.println("-".repeat(20));
         } catch (InputMismatchException E) {
             consoleColor.printlnRed("Некорректный ввод! Доступно только положительное число.");
